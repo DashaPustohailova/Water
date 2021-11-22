@@ -4,16 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.Registrate.RegistrateFragment">
+    tools:context=".screens.Registrate.RegistrateFragment"
+    android:layout_gravity="center">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Регистрация"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spenner"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:hint="Ваш пол"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:startIconDrawable="@drawable/ic_person"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_weight="1"
+            android:inputType="none"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Введите пароль"
+
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHighlight="@color/black"
+        android:textColorHint="@android:color/darker_gray"
+        android:textColorLink="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/editTextNumberDecimal2"
+        app:layout_constraintStart_toStartOf="@+id/editTextNumberDecimal2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal2" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword2"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Повторите пароль"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Имя"
+        android:textColorHint="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/editTextNumberDecimal2"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Вес (кг)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/spenner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentStartBinding
 import com.example.water.utilits.APP_ACTIVITY
+import com.example.water.utilits.EMAIL
+import com.example.water.utilits.PASSWORD
 import kotlinx.android.synthetic.main.fragment_start.*
+import java.util.*
 
 class StartFragment : Fragment() {
 
@@ -34,7 +38,17 @@ class StartFragment : Fragment() {
     private fun initialization(){
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
         btIn.setOnClickListener{
-            APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
+            val inputEmail = mBinding.inputEmail.text.toString()
+            val inputPassword = mBinding.inputPassword.text.toString()
+
+            if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()){
+                EMAIL = inputEmail
+                PASSWORD = inputPassword
+            }
+            else{
+                Toast.makeText(APP_ACTIVITY, getString(R.string.empty_email_or_password), Toast.LENGTH_SHORT).show()
+            }
+//            APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
         }
         btRegistrate.setOnClickListener{
             APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)

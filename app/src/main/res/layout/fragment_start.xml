@@ -6,24 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".screens.lk.LkFragment">
 
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/password"
+        app:layout_constraintEnd_toEndOf="@+id/input_email"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/input_email"
+        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+
     <Button
         android:id="@+id/btIn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Войти"
         app:backgroundTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="@+id/input_password"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="@+id/input_password"
+        app:layout_constraintTop_toBottomOf="@+id/input_password" />
 
     <Button
         android:id="@+id/btRegistrate"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Регистрация"
         app:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/btIn"
