@@ -29,9 +29,9 @@
         app:boxStrokeColor="@color/black"
         app:hintTextColor="@color/black"
         app:startIconDrawable="@drawable/ic_person"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName">
+        app:layout_constraintEnd_toEndOf="@+id/etName"
+        app:layout_constraintStart_toStartOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/etName">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
@@ -46,7 +46,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/input_email"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/etWeight"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/etWeight"
+        app:layout_constraintTop_toBottomOf="@+id/etWeight" />
+
+    <EditText
+        android:id="@+id/etPassword"
         android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -57,23 +69,23 @@
         android:textColorHighlight="@color/black"
         android:textColorHint="@android:color/darker_gray"
         android:textColorLink="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/editTextNumberDecimal2"
-        app:layout_constraintStart_toStartOf="@+id/editTextNumberDecimal2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal2" />
+        app:layout_constraintEnd_toEndOf="@+id/input_email"
+        app:layout_constraintStart_toStartOf="@+id/input_email"
+        app:layout_constraintTop_toBottomOf="@+id/input_email" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/etPassword2"
         android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Повторите пароль"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/etPassword"
+        app:layout_constraintStart_toStartOf="@+id/etPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etName"
         android:layout_width="@dimen/btn_with"
         android:layout_height="46dp"
         android:ems="10"
@@ -85,15 +97,26 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal2"
+        android:id="@+id/etWeight"
         android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Вес (кг)"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/etName"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintStart_toStartOf="@+id/etName"
         app:layout_constraintTop_toBottomOf="@+id/spenner" />
+
+    <Button
+        android:id="@+id/btRegistrate"
+        android:layout_width="@dimen/btn_with"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Регистрация"
+        app:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/etPassword2"
+        app:layout_constraintStart_toStartOf="@+id/etPassword2"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

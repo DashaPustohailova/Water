@@ -37,13 +37,20 @@ class StartFragment : Fragment() {
 
     private fun initialization(){
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
+
         btIn.setOnClickListener{
             val inputEmail = mBinding.inputEmail.text.toString()
             val inputPassword = mBinding.inputPassword.text.toString()
 
+            Toast.makeText(APP_ACTIVITY," IN", Toast.LENGTH_SHORT).show()
+
             if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()){
                 EMAIL = inputEmail
                 PASSWORD = inputPassword
+                mViewModel.initDatabase(){
+                    Toast.makeText(APP_ACTIVITY,"Иницициализация прошла успешно", Toast.LENGTH_SHORT).show()
+                    APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
+                }
             }
             else{
                 Toast.makeText(APP_ACTIVITY, getString(R.string.empty_email_or_password), Toast.LENGTH_SHORT).show()
