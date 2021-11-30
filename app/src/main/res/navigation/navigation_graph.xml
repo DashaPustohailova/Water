@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_registrateFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_registrateFragment_to_lkFragment"
+            app:destination="@id/lkFragment" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"

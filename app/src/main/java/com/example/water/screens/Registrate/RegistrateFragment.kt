@@ -17,6 +17,7 @@ import com.example.water.utilits.INIT_DATABASE
 import com.example.water.utilits.PASSWORD
 import kotlinx.android.synthetic.main.fragment_registrate.*
 import kotlinx.android.synthetic.main.fragment_registrate.view.*
+import kotlin.properties.Delegates
 
 
 class RegistrateFragment : Fragment() {
@@ -26,6 +27,11 @@ class RegistrateFragment : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: RegistrateFragmentViewModel
 
+    lateinit var name: String
+    var weight by Delegates.notNull<Int>()
+    lateinit var gender: String
+    lateinit var inputEmail: String
+    lateinit var inputPassword: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,20 +58,25 @@ class RegistrateFragment : Fragment() {
         super.onStart()
         initialization()
 
-        val name = mBinding.etName.text.toString()
-        val weight = 50
-        val gender = "Женский"
+
 
         btRegistrate.setOnClickListener{
 
-            val inputEmail = mBinding.inputEmail.text.toString()
-            val inputPassword = mBinding.etPassword.text.toString()
+            name = mBinding.etName.text.toString()
+            weight = mBinding.etWeight2.text.toString().toInt()
+            gender = "Женский"
+            inputEmail = mBinding.inputEmail.text.toString()
+            inputPassword = mBinding.etPassword.text.toString()
 
 
             EMAIL = inputEmail
             PASSWORD = inputPassword
-            Toast.makeText(APP_ACTIVITY, EMAIL + PASSWORD, Toast.LENGTH_SHORT ).show()
-            mViewModel.registration(UserData(name = name, weight = weight, gender = gender, normWater = 0)){}
+            Toast.makeText(APP_ACTIVITY, weight.toString(), Toast.LENGTH_SHORT ).show()
+
+            mViewModel.registration(UserData(name = name, weight = weight, gender = gender, normWater = 0)){
+                //если регистрация прошла успешно
+                //APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
+            }
         }
 
     }

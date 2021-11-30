@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentLkBinding
 import com.example.water.utilits.APP_ACTIVITY
+import com.example.water.utilits.AUTH
 import kotlinx.android.synthetic.main.fragment_lk.*
 
 class LkFragment : Fragment() {
@@ -37,6 +38,7 @@ class LkFragment : Fragment() {
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_statisticsFragment)
         }
         btExit.setOnClickListener{
+            AUTH.signOut()
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
         }
     }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentStartBinding
 import com.example.water.utilits.APP_ACTIVITY
+import com.example.water.utilits.AUTH
 import com.example.water.utilits.EMAIL
 import com.example.water.utilits.PASSWORD
 import kotlinx.android.synthetic.main.fragment_start.*
@@ -19,6 +20,7 @@ class StartFragment : Fragment() {
 
     private var _binding: FragmentStartBinding? = null
     private val mBinding get() = _binding!!
+
     private lateinit var mViewModel: StartFragmentViewModel
 
     override fun onCreateView(
@@ -48,6 +50,7 @@ class StartFragment : Fragment() {
                 EMAIL = inputEmail
                 PASSWORD = inputPassword
                 mViewModel.initDatabase(){
+                    //если инициализация прошла успешно
                     Toast.makeText(APP_ACTIVITY,"Иницициализация прошла успешно", Toast.LENGTH_SHORT).show()
                     APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
                 }

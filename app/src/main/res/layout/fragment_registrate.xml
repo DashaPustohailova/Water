@@ -52,10 +52,10 @@
         android:layout_marginTop="4dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/etWeight"
+        app:layout_constraintEnd_toEndOf="@+id/etWeight2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/etWeight"
-        app:layout_constraintTop_toBottomOf="@+id/etWeight" />
+        app:layout_constraintStart_toStartOf="@+id/etWeight2"
+        app:layout_constraintTop_toBottomOf="@+id/etWeight2" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -97,14 +97,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/etWeight"
+        android:id="@+id/etWeight2"
         android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:hint="Вес (кг)"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/etName"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/etName"
         app:layout_constraintTop_toBottomOf="@+id/spenner" />
 
