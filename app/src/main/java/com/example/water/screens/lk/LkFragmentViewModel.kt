@@ -2,16 +2,13 @@ package com.example.water.screens.lk
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.example.water.database.UserDataLiveData
+import com.example.water.utilits.AUTH
+import com.example.water.utilits.REF_DATABASE
+import com.example.water.utilits.REPOSITORY
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 class LkFragmentViewModel(application: Application): AndroidViewModel(application) {
-    private val mAuth = FirebaseAuth.getInstance()
-
-    private val mDatabaseReference = FirebaseDatabase.getInstance().reference
-        .child(mAuth.currentUser?.uid.toString())
-
-//    val nameUser = mDatabaseReference.ref?.child("userData").once("value)
-
-
+    val userData = REPOSITORY.userData
 }
