@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import com.example.water.models.UserData
 import com.example.water.utilits.AUTH
+import com.example.water.utilits.CURRENT_ID
 import com.example.water.utilits.REF_DATABASE
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,10 +19,9 @@ class UserDataLiveData: LiveData<List<UserData>>(){
         override fun onDataChange(snapshot: DataSnapshot) {
             value = snapshot.children.map {
                 //если не смогли получить запись, то просто возвращаем пустую запись
-                it.getValue(UserData::class.java)?: UserData()
+                it.getValue(UserData::class.java)?: UserData("name", "", 0,0)
             }
         }
-
 
         override fun onCancelled(error: DatabaseError) {
         }

@@ -13,6 +13,7 @@ class AppDatabaseRepository : DatabaseRepository{
 
 
     val allReport: LiveData<List<Report>> = AllReportLiveData()
+    override val userData: LiveData<List<UserData>> = UserDataLiveData()
 
     init {
         AUTH = FirebaseAuth.getInstance()
@@ -26,7 +27,7 @@ class AppDatabaseRepository : DatabaseRepository{
 
         CURRENT_ID = AUTH.currentUser?.uid.toString()
         REF_DATABASE = FirebaseDatabase.getInstance().reference
-            .child(AUTH.currentUser?.uid.toString())
+//            .child(AUTH.currentUser?.uid.toString())
     }
 
     override fun signOut() {
@@ -41,14 +42,14 @@ class AppDatabaseRepository : DatabaseRepository{
                     {
 
                     val idUserData =
-                        REF_DATABASE?.ref?.child("userData")
+                        REF_DATABASE?.ref?.child("users/${AUTH.currentUser?.uid.toString()}")
                             ?.push()?.key.toString()
                     val userDataNote = hashMapOf<String, Any>()
                     userDataNote[NAME] = userData.name
                     userDataNote[GENDER] = userData.gender
                     userDataNote[WEIGHT] = userData.weight
 
-                    REF_DATABASE?.child("userData/${idUserData}")
+                    REF_DATABASE?.child("users/${AUTH.currentUser?.uid.toString()}")
                         ?.updateChildren(userDataNote)
                         ?.addOnSuccessListener { onSuccess()
                             Toast.makeText(APP_ACTIVITY, "add user data", Toast.LENGTH_SHORT).show()}
