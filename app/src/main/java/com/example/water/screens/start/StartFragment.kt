@@ -9,10 +9,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentStartBinding
-import com.example.water.utilits.APP_ACTIVITY
-import com.example.water.utilits.AUTH
-import com.example.water.utilits.EMAIL
-import com.example.water.utilits.PASSWORD
+import com.example.water.models.UserData
+import com.example.water.utilits.*
 import kotlinx.android.synthetic.main.fragment_start.*
 import java.util.*
 
@@ -51,6 +49,7 @@ class StartFragment : Fragment() {
                 PASSWORD = inputPassword
                 mViewModel.initDatabase(){
                     //если инициализация прошла успешно
+                    mViewModel.initUser()
                     Toast.makeText(APP_ACTIVITY,"Иницициализация прошла успешно", Toast.LENGTH_SHORT).show()
                     APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
                 }

@@ -11,7 +11,12 @@ class StartFragmentViewModel(application: Application): AndroidViewModel(applica
     private val context = application
 
     fun initDatabase(onSuccess: () -> Unit) {
-        REPOSITORY.connectToDatabase({ onSuccess() },
+        REPOSITORY.connectToDatabase({
+            onSuccess() },
             { Toast.makeText(APP_ACTIVITY, "Проблемы при авторизации", Toast.LENGTH_SHORT).show() })
+    }
+
+    fun initUser(){
+        REPOSITORY.initUser()
     }
 }

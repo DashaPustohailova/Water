@@ -75,6 +75,7 @@ class RegistrateFragment : Fragment() {
 
             mViewModel.registration(UserData(name = name, weight = weight, gender = gender, normWater = 0)){
                 //если регистрация прошла успешно
+                mViewModel.initUser()
                 //APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
             }
         }

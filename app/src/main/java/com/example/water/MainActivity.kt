@@ -12,7 +12,11 @@ import androidx.core.app.NotificationCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.water.databinding.ActivityMainBinding
+import com.example.water.models.UserData
 import com.example.water.utilits.APP_ACTIVITY
+import com.example.water.utilits.REF_DATABASE
+import com.example.water.utilits.REPOSITORY
+import com.example.water.utilits.USER_DATA
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,13 +34,15 @@ class MainActivity : AppCompatActivity() {
 
         //чтобы получать контекст в любом месте приложения
         APP_ACTIVITY = this
-
         mToolbar = mBinding.toolbar
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
         title = "Water"
 
+
+
     }
+
 
 
     override fun onDestroy() {

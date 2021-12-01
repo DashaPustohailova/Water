@@ -11,8 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentLkBinding
 import com.example.water.models.UserData
-import com.example.water.utilits.APP_ACTIVITY
-import com.example.water.utilits.AUTH
+import com.example.water.utilits.*
 import kotlinx.android.synthetic.main.fragment_lk.*
 
 class LkFragment : Fragment() {
@@ -20,7 +19,7 @@ class LkFragment : Fragment() {
     private var _binding: FragmentLkBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: LkFragmentViewModel
-    private lateinit var mObserverList: Observer<List<UserData>>
+    private lateinit var mObserverList: Observer<UserData>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +36,7 @@ class LkFragment : Fragment() {
     }
 
     private fun initialization() {
+        Toast.makeText(APP_ACTIVITY, USER_NAME, Toast.LENGTH_LONG).show()
         mViewModel = ViewModelProvider(this).get(LkFragmentViewModel::class.java)
         btStatistics.setOnClickListener {
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_statisticsFragment)
@@ -46,12 +46,7 @@ class LkFragment : Fragment() {
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
         }
 
-        mObserverList = Observer {
-            val userData1 = it
-            tvHello.text = userData1[0].name
-            Toast.makeText(APP_ACTIVITY, userData1[0].name, Toast.LENGTH_LONG).show()
-        }
-        mViewModel.userData.observe(this, mObserverList)
+        tvHello.text = "Hello," + USER_DATA?.name
 
     }
 
