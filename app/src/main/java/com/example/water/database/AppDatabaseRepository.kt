@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_lk.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -55,7 +56,7 @@ class AppDatabaseRepository : DatabaseRepository{
         AUTH.signOut()
         CURRENT_ID = ""
         USER_DATA = UserData()
-        Log.d("Value", "Exit" +" "+  USER_DATA.name.toString() +" "+  CURRENT_ID)
+//        Log.d("Value", "Exit" +" "+  USER_DATA.name.toString() +" "+  CURRENT_ID)
     }
 
     override fun registration(userData: UserData, onSuccess: () -> Unit ) {
@@ -72,12 +73,21 @@ class AppDatabaseRepository : DatabaseRepository{
                     userDataNote[NAME] = userData.name
                     userDataNote[GENDER] = userData.gender
                     userDataNote[WEIGHT] = userData.weight
+                    if(userData.gender.equals("Woman")){
+                        userDataNote[NORM_WATER] = userData.weight * 30
+                    }
+                    else {
+                        userDataNote[NORM_WATER] = userData.weight * 40
+                    }
 
                     REF_DATABASE?.child("users/${AUTH.currentUser?.uid.toString()}")
                         ?.updateChildren(userDataNote)
                         ?.addOnSuccessListener { onSuccess()
                             Toast.makeText(APP_ACTIVITY, "add user data", Toast.LENGTH_SHORT).show()}
+
                 },{})
+                Toast.makeText(APP_ACTIVITY, "Регистрация прошла успешна", Toast.LENGTH_SHORT).show()
+                APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_startFragment)
                 onSuccess()
             }
     }

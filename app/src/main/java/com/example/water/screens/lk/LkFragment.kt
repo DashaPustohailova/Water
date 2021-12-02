@@ -21,6 +21,7 @@ class LkFragment : Fragment() {
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: LkFragmentViewModel
     private lateinit var mObserverList: Observer<UserData>
+    private var x = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +51,9 @@ class LkFragment : Fragment() {
             Observer { data ->
                 data?.let {
                     USER_DATA = data
-                    tvHello.text = "Hello," + USER_DATA.name
+                    tvHello.text = "Привет, " + USER_DATA.name
+                    tvWeight.text = "Ваш вес: " + USER_DATA.weight
+                    tvNormalWater.text = "Норма воды в день: " + USER_DATA.normWater
                 }
             }
         )

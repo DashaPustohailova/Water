@@ -21,3 +21,4 @@ var USER_DATA: UserData = UserData()
 const val NAME = "name"
 const val WEIGHT = "weight"
 const val GENDER = "gender"
+const val NORM_WATER = "normWater"

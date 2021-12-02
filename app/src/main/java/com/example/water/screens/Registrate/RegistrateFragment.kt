@@ -73,9 +73,10 @@ class RegistrateFragment : Fragment() {
             PASSWORD = inputPassword
             Toast.makeText(APP_ACTIVITY, weight.toString(), Toast.LENGTH_SHORT ).show()
 
-            mViewModel.registration(UserData(name = name, weight = weight, gender = gender, normWater = 0)){
+            mViewModel.registration(UserData(name = name, weight = weight, gender = gender)){
                 //если регистрация прошла успешно
-                APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
+//                APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
+//                APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
             }
         }
 
