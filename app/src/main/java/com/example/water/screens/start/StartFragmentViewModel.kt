@@ -16,7 +16,5 @@ class StartFragmentViewModel(application: Application): AndroidViewModel(applica
             { Toast.makeText(APP_ACTIVITY, "Проблемы при авторизации", Toast.LENGTH_SHORT).show() })
     }
 
-    fun initUser(){
-        REPOSITORY.initUser()
-    }
+
 }

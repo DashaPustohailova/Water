@@ -1,6 +1,7 @@
 package com.example.water.screens.start
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,15 +43,17 @@ class StartFragment : Fragment() {
             val inputEmail = mBinding.inputEmail.text.toString()
             val inputPassword = mBinding.inputPassword.text.toString()
 
-            Toast.makeText(APP_ACTIVITY," IN", Toast.LENGTH_SHORT).show()
+            Toast.makeText(APP_ACTIVITY,"IN", Toast.LENGTH_SHORT).show()
 
             if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()){
                 EMAIL = inputEmail
                 PASSWORD = inputPassword
+                Log.d("Value", EMAIL +" ")
                 mViewModel.initDatabase(){
                     //если инициализация прошла успешно
-                    mViewModel.initUser()
                     Toast.makeText(APP_ACTIVITY,"Иницициализация прошла успешно", Toast.LENGTH_SHORT).show()
+
+                    Log.d("Value", "ON_SUCCESS" + " " + CURRENT_ID + USER_DATA.name.toString())
                     APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
                 }
             }

@@ -12,14 +12,7 @@ import kotlinx.coroutines.launch
 
 class RegistrateFragmentViewModel(application: Application): AndroidViewModel(application) {
 
-//    fun initDatabase(onSuccess: () -> Unit) {
-//        REPOSITORY.connectToDatabase({ onSuccess() },
-//            { Toast.makeText(APP_ACTIVITY, "Проблемы при авторизации", Toast.LENGTH_SHORT).show() })
-//    }
 
-    fun initUser(){
-        REPOSITORY.initUser()
-    }
     fun registration(userData: UserData, onSuccess: () -> Unit) =
         viewModelScope.launch(Dispatchers.Main){
             REPOSITORY.registration(UserData(name = userData.name, gender=userData.gender, weight=userData.weight, normWater = 0)){

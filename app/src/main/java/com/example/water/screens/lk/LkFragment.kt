@@ -1,6 +1,7 @@
 package com.example.water.screens.lk
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,23 +31,38 @@ class LkFragment : Fragment() {
         return mBinding.root
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
     override fun onStart() {
         super.onStart()
         initialization()
     }
 
     private fun initialization() {
-        Toast.makeText(APP_ACTIVITY, USER_NAME, Toast.LENGTH_LONG).show()
+
         mViewModel = ViewModelProvider(this).get(LkFragmentViewModel::class.java)
+//        mViewModel.initUser()
+        mViewModel.userLiveData.observe(
+            viewLifecycleOwner,
+            Observer { data ->
+                data?.let {
+                    USER_DATA = data
+                    tvHello.text = "Hello," + USER_DATA.name
+                }
+            }
+        )
+        Log.d("Value", "LK_FRAGMENT" + " " + CURRENT_ID + USER_DATA.name.toString())
         btStatistics.setOnClickListener {
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_statisticsFragment)
         }
         btExit.setOnClickListener{
-            AUTH.signOut()
+            mViewModel.signOut()
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
         }
 
-        tvHello.text = "Hello," + USER_DATA?.name
 
     }
 

@@ -12,6 +12,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class AppDatabaseRepository : DatabaseRepository{
 
@@ -21,13 +23,13 @@ class AppDatabaseRepository : DatabaseRepository{
     init {
         AUTH = FirebaseAuth.getInstance()
     }
-    override  fun initUser(){
+    override fun initUser(){
         REF_DATABASE?.ref
             ?.child("users")?.child(CURRENT_ID)
             ?.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    USER_DATA= snapshot.getValue(UserData::class.java)!!
-                    Log.d("Value", USER_DATA.name.toString())
+                    USER_DATA = snapshot.getValue(UserData::class.java)?: UserData()
+                    Log.d("Value", CURRENT_ID + USER_DATA.name.toString())
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -38,18 +40,22 @@ class AppDatabaseRepository : DatabaseRepository{
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: () -> Unit) {
         AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
             .addOnSuccessListener {
-                initUser()
+
+                CURRENT_ID = AUTH.currentUser?.uid.toString()
+                REF_DATABASE = FirebaseDatabase.getInstance().reference
+//                initUser()
+
                 onSuccess() }
             .addOnFailureListener {
                 APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)}
-
-        CURRENT_ID = AUTH.currentUser?.uid.toString()
-        REF_DATABASE = FirebaseDatabase.getInstance().reference
 //            .child(AUTH.currentUser?.uid.toString())
     }
 
     override fun signOut() {
         AUTH.signOut()
+        CURRENT_ID = ""
+        USER_DATA = UserData()
+        Log.d("Value", "Exit" +" "+  USER_DATA.name.toString() +" "+  CURRENT_ID)
     }
 
     override fun registration(userData: UserData, onSuccess: () -> Unit ) {
@@ -72,7 +78,6 @@ class AppDatabaseRepository : DatabaseRepository{
                         ?.addOnSuccessListener { onSuccess()
                             Toast.makeText(APP_ACTIVITY, "add user data", Toast.LENGTH_SHORT).show()}
                 },{})
-                APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
                 onSuccess()
             }
     }

@@ -15,7 +15,8 @@
             app:destination="@id/statisticsFragment" />
         <action
             android:id="@+id/action_lkFragment_to_startFragment"
-            app:destination="@id/startFragment" />
+            app:destination="@id/startFragment"
+            app:launchSingleTop="false" />
     </fragment>
     <fragment
         android:id="@+id/registrateFragment"
@@ -48,6 +49,9 @@
             app:destination="@id/registrateFragment" />
         <action
             android:id="@+id/action_startFragment_to_lkFragment"
-            app:destination="@id/lkFragment" />
+            app:destination="@id/lkFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>
