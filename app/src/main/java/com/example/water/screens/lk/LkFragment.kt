@@ -14,6 +14,8 @@ import com.example.water.databinding.FragmentLkBinding
 import com.example.water.models.UserData
 import com.example.water.utilits.*
 import kotlinx.android.synthetic.main.fragment_lk.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LkFragment : Fragment() {
 
@@ -52,19 +54,28 @@ class LkFragment : Fragment() {
                 data?.let {
                     USER_DATA = data
                     tvHello.text = "Привет, " + USER_DATA.name
-                    tvWeight.text = "Ваш вес: " + USER_DATA.weight
-                    tvNormalWater.text = "Норма воды в день: " + USER_DATA.normWater
                 }
             }
         )
         Log.d("Value", "LK_FRAGMENT" + " " + CURRENT_ID + USER_DATA.name.toString())
+
+        val sdf = SimpleDateFormat("dd.m.yyyy ")
+        val currentDate = sdf.format(Date())
+        tvDate.text = "Сегодня: $currentDate"
+
         btStatistics.setOnClickListener {
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_statisticsFragment)
+        }
+
+        btProfile.setOnClickListener {
+
+            APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_userPersonalDataFragment)
         }
         btExit.setOnClickListener{
             mViewModel.signOut()
             APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
         }
+
 
 
     }

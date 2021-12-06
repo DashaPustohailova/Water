@@ -16,7 +16,11 @@
         <action
             android:id="@+id/action_lkFragment_to_startFragment"
             app:destination="@id/startFragment"
-            app:launchSingleTop="false" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_graph" />
+        <action
+            android:id="@+id/action_lkFragment_to_userPersonalDataFragment"
+            app:destination="@id/userPersonalDataFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrateFragment"
@@ -53,5 +57,16 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/navigation_graph"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPersonalDataFragment"
+        android:name="com.example.water.screens.userPersonalData.UserPersonalDataFragment"
+        android:label="fragment_user_personal_data"
+        tools:layout="@layout/fragment_user_personal_data" >
+        <action
+            android:id="@+id/action_userPersonalDataFragment_to_lkFragment"
+            app:destination="@id/lkFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_graph" />
     </fragment>
 </navigation>
