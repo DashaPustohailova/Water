@@ -1,5 +1,6 @@
 package com.example.water.screens.userPersonalData
 
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ class UserPersonalDataFragment : Fragment() {
 
     private var _binding: FragmentUserPersonalDataBinding? = null
     private val mBinding get() = _binding!!
+    private lateinit var transition: AnimationDrawable
 
     private lateinit var mViewModel: UserPersonalDataViewModel
 
@@ -55,11 +57,14 @@ class UserPersonalDataFragment : Fragment() {
                     USER_DATA = data
                     tvHello.text = "Привет, " + USER_DATA.name
                     tvWeight.text = "Ваш вес: " + USER_DATA.weight
-                    tvNormalWater.text = "Норма воды в день: " + USER_DATA.normWater
+                    tvNormalWater.text = "Норма воды в день: " + USER_DATA.normWater + "мл"
                 }
             }
         )
 
+        mBinding.bback.setBackgroundResource(R.drawable.back_water)
+        transition =  mBinding.bback.background as AnimationDrawable
+        transition.start()
     }
 
     override fun onDestroyView() {

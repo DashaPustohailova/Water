@@ -4,8 +4,6 @@ import java.io.Serializable
 
 
 data class Report (
-    val date: String = "",
-    val countWater: String = "",
-    val idFirebase: String = ""
-
+    val date: String = "1111",
+    val water: String = ""
 ):Serializable

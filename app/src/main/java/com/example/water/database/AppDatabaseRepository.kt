@@ -16,8 +16,7 @@ import kotlinx.android.synthetic.main.fragment_lk.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AppDatabaseRepository : DatabaseRepository{
-
+class AppDatabaseRepository() : DatabaseRepository{
 
     val allReport: LiveData<List<Report>> = AllReportLiveData()
 
@@ -38,6 +37,9 @@ class AppDatabaseRepository : DatabaseRepository{
 
             })
     }
+
+
+
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: () -> Unit) {
         AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
             .addOnSuccessListener {
@@ -55,6 +57,7 @@ class AppDatabaseRepository : DatabaseRepository{
     override fun signOut() {
         AUTH.signOut()
         CURRENT_ID = ""
+        ID_REPORT = ""
         USER_DATA = UserData()
 //        Log.d("Value", "Exit" +" "+  USER_DATA.name.toString() +" "+  CURRENT_ID)
     }
@@ -73,11 +76,13 @@ class AppDatabaseRepository : DatabaseRepository{
                     userDataNote[NAME] = userData.name
                     userDataNote[GENDER] = userData.gender
                     userDataNote[WEIGHT] = userData.weight
-                    if(userData.gender.equals("Woman")){
-                        userDataNote[NORM_WATER] = userData.weight * 30
+                    if(userData.gender.equals("Женский")){
+                        userDataNote[NORM_WATER] = userData.weight.toInt() * 31
+                        Log.d("Value", userData.weight.toString())
                     }
                     else {
-                        userDataNote[NORM_WATER] = userData.weight * 40
+                        userDataNote[NORM_WATER] = userData.weight.toInt() * 35
+                        Log.d("Value", userData.weight.toString())
                     }
 
                     REF_DATABASE?.child("users/${AUTH.currentUser?.uid.toString()}")

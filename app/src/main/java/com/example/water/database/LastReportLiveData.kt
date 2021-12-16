@@ -1,26 +1,32 @@
 package com.example.water.database
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.water.models.Report
 import com.example.water.utilits.CURRENT_ID
 import com.example.water.utilits.REF_DATABASE
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
+import android.R.attr.name
+import com.example.water.utilits.ID_REPORT
 
-class AllReportLiveData : LiveData<List<Report>> (){
+
+class LastReportLiveData: LiveData<Report>(){
     private val mDatabaseReferenceWater = REF_DATABASE?.ref
-        ?.child("report")?.child(CURRENT_ID)
+    ?.child("report")?.child(CURRENT_ID)?.orderByKey()?.limitToLast(1)
 
-    private val listener = object : ValueEventListener{
+    private val listener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
-            value = snapshot.children.map {
-                //если не смогли получить запись, то просто возвращаем пустую запись
-                it.getValue(Report::class.java)?:Report()
+            var s: Report = Report()
+            for (data in snapshot.getChildren()) {
+                s = data.getValue(Report::class.java)?: Report()
+                ID_REPORT = data.key
+                Log.d("Value"," currentDate  ${ID_REPORT}")
             }
+            value = s
+//            Log.d("Value"," currentDate  ${value}")
+//            ID_REPORT = snapshot.key
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -39,5 +45,5 @@ class AllReportLiveData : LiveData<List<Report>> (){
         mDatabaseReferenceWater?.removeEventListener(listener)
         super.onInactive()
     }
-}
 
+}

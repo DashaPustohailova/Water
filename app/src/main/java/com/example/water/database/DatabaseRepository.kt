@@ -19,4 +19,5 @@ interface DatabaseRepository {
 
     fun initUser(){}
     fun registration(userData: UserData, onSuccess: () -> Unit){}
+
 }

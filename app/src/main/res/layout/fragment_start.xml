@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".screens.lk.LkFragment">
 
+    <ImageView
+        android:id="@+id/bback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
     <EditText
         android:id="@+id/input_email"
@@ -13,6 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="216dp"
         android:hint="@string/email"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
+        android:textCursorDrawable="@color/white"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -24,7 +35,12 @@
         android:layout_width="@dimen/btn_with"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
+        android:textCursorDrawable="@color/white"
         android:hint="@string/password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/input_email"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/input_email"
@@ -36,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Войти"
-        app:backgroundTint="@color/black"
+        android:textColor="#264047"
+        app:backgroundTint="#B7BDF3FA"
         app:layout_constraintEnd_toEndOf="@+id/input_password"
         app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="@+id/input_password"
@@ -48,9 +65,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Регистрация"
-        app:backgroundTint="@color/black"
+        android:textColor="#264047"
+        app:backgroundTint="#B7BDF3FA"
         app:layout_constraintEnd_toEndOf="@+id/btIn"
         app:layout_constraintStart_toStartOf="@+id/btIn"
         app:layout_constraintTop_toBottomOf="@+id/btIn" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

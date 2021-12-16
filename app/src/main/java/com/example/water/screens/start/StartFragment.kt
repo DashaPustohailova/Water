@@ -1,24 +1,33 @@
 package com.example.water.screens.start
 
+import android.graphics.Movie
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.water.R
 import com.example.water.databinding.FragmentStartBinding
 import com.example.water.models.UserData
 import com.example.water.utilits.*
 import kotlinx.android.synthetic.main.fragment_start.*
 import java.util.*
+import android.graphics.drawable.TransitionDrawable
+import android.graphics.drawable.AnimationDrawable
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+
 
 class StartFragment : Fragment() {
 
     private var _binding: FragmentStartBinding? = null
     private val mBinding get() = _binding!!
+    private lateinit var transition: AnimationDrawable
 
     private lateinit var mViewModel: StartFragmentViewModel
 
@@ -33,17 +42,22 @@ class StartFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
         initialization()
+//        val sunRiseAnimation: Animation = AnimationUtils.loadAnimation(APP_ACTIVITY, R.anim.back_water)
+        // Подключаем анимацию к нужному View
+//        mBinding.image.startAnimation(sunRiseAnimation)
     }
 
     private fun initialization(){
+
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
+//        mBinding.layoutStart.animation
 
         btIn.setOnClickListener{
             val inputEmail = mBinding.inputEmail.text.toString()
             val inputPassword = mBinding.inputPassword.text.toString()
 
-            Toast.makeText(APP_ACTIVITY,"IN", Toast.LENGTH_SHORT).show()
 
             if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()){
                 EMAIL = inputEmail
@@ -51,20 +65,19 @@ class StartFragment : Fragment() {
                 Log.d("Value", EMAIL +" ")
                 mViewModel.initDatabase(){
                     //если инициализация прошла успешно
-                    Toast.makeText(APP_ACTIVITY,"Иницициализация прошла успешно", Toast.LENGTH_SHORT).show()
-
-                    Log.d("Value", "ON_SUCCESS" + " " + CURRENT_ID + USER_DATA.name.toString())
                     APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
                 }
             }
             else{
                 Toast.makeText(APP_ACTIVITY, getString(R.string.empty_email_or_password), Toast.LENGTH_SHORT).show()
             }
-//            APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
         }
         btRegistrate.setOnClickListener{
             APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)
         }
+        mBinding.bback.setBackgroundResource(R.drawable.back_water)
+        transition =  mBinding.bback.background as AnimationDrawable
+        transition.start()
     }
 
 

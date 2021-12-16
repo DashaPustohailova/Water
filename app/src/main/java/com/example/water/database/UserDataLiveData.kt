@@ -36,16 +36,4 @@ class UserDataLiveData: LiveData<UserData>() {
         mDatabaseReferenceWater?.removeEventListener(listener)
         super.onInactive()
     }
-//    REF_DATABASE?.ref
-//    ?.child("users")?.child(CURRENT_ID)
-//    ?.addListenerForSingleValueEvent(object : ValueEventListener {
-//        override fun onDataChange(snapshot: DataSnapshot) {
-//            USER_DATA = snapshot.getValue(UserData::class.java)?: UserData()
-//            Log.d("Value", CURRENT_ID + USER_DATA.name.toString())
-//        }
-//
-//        override fun onCancelled(error: DatabaseError) {
-//        }
-//
-//    })
 }
