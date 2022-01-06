@@ -15,11 +15,7 @@ import kotlinx.android.synthetic.main.fragment_lk.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-<<<<<<< HEAD:app/src/main/java/com/example/water/presentation/screens/lk/LkFragment.kt
-import com.example.water.models.Report
-=======
 import com.example.water.domain.models.Report
->>>>>>> 04a74eaed8119723aecfe8c70e062fa68d6061cb:app/src/main/java/com/example/water/screens/lk/LkFragment.kt
 
 
 class LkFragment : Fragment() {

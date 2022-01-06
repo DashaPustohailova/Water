@@ -1,12 +1,12 @@
 package com.example.water.utilits
 
-import com.example.water.MainActivity
-import com.example.water.database.AppDatabaseRepository
-import com.example.water.database.DatabaseRepository
-import com.example.water.models.UserData
+import com.example.water.presentation.MainActivity
+import com.example.water.data.repository.DatabaseRepositoryImpl
+import com.example.water.data.storage.firebase.FirebaseStorage
+import com.example.water.domain.repository.DatabaseRepository
+import com.example.water.domain.models.UserData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import kotlin.properties.Delegates
 
 lateinit var AUTH: FirebaseAuth
 lateinit var APP_ACTIVITY: MainActivity
@@ -14,7 +14,7 @@ lateinit var EMAIL: String
 lateinit var PASSWORD: String
 
 var ID_REPORT:String? = ""
-var REPOSITORY: DatabaseRepository = AppDatabaseRepository()
+var REPOSITORY: DatabaseRepository = DatabaseRepositoryImpl(FirebaseStorage())
 var INIT_DATABASE = false
 var USER_NAME: String = ""
 var USER_DATA: UserData = UserData()

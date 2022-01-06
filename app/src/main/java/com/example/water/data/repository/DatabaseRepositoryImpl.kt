@@ -49,10 +49,6 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
             .addOnSuccessListener {
                 connectToDatabase(
                     {
-<<<<<<< HEAD:app/src/main/java/com/example/water/database/AppDatabaseRepository.kt
-
-=======
->>>>>>> 04a74eaed8119723aecfe8c70e062fa68d6061cb:app/src/main/java/com/example/water/data/repository/DatabaseRepositoryImpl.kt
                     val userDataNote = hashMapOf<String, Any>()
                     userDataNote[NAME] = userData.name
                     userDataNote[GENDER] = userData.gender

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/lkFragment"
-        android:name="com.example.water.screens.lk.LkFragment"
+        android:name="com.example.water.presentation.screens.lk.LkFragment"
         android:label="fragment_lk"
         tools:layout="@layout/fragment_lk" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrateFragment"
-        android:name="com.example.water.screens.Registrate.RegistrateFragment"
+        android:name="com.example.water.presentation.screens.Registrate.RegistrateFragment"
         android:label="fragment_registrate"
         tools:layout="@layout/fragment_registrate" >
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
-        android:name="com.example.water.screens.statistics.StatisticsFragment"
+        android:name="com.example.water.presentation.screens.statistics.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" >
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.example.water.screens.start.StartFragment"
+        android:name="com.example.water.presentation.screens.start.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/userPersonalDataFragment"
-        android:name="com.example.water.screens.userPersonalData.UserPersonalDataFragment"
+        android:name="com.example.water.presentation.screens.userPersonalData.UserPersonalDataFragment"
         android:label="fragment_user_personal_data"
         tools:layout="@layout/fragment_user_personal_data" >
         <action

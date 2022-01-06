@@ -1,13 +1,10 @@
 package com.example.water.presentation.screens.Registrate
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-<<<<<<< HEAD:app/src/main/java/com/example/water/presentation/screens/Registrate/RegistrateFragmentViewModel.kt
-import com.example.water.models.UserData
-=======
 import com.example.water.domain.models.UserData
->>>>>>> 04a74eaed8119723aecfe8c70e062fa68d6061cb:app/src/main/java/com/example/water/screens/Registrate/RegistrateFragmentViewModel.kt
 import com.example.water.utilits.REPOSITORY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
