@@ -13,9 +13,9 @@ import java.util.*
 
 class LkFragmentViewModel(application: Application): AndroidViewModel(application) {
 
-    val userLiveData = UserDataLiveData()
-    val currentReport = CurrentDateReportLiveData()
-    val lastReport = LastReportLiveData()
+    val userLiveData = REPOSITORY.getUserData()
+    val currentReport = REPOSITORY.getCurrentDateReport()
+    val lastReport = REPOSITORY.getLastReport()
 
     val sdf = SimpleDateFormat("dd.M.yyyy")
 

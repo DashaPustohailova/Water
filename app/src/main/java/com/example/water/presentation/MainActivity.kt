@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-
         //чтобы получать контекст в любом месте приложения
         APP_ACTIVITY = this
         mToolbar = mBinding.toolbar

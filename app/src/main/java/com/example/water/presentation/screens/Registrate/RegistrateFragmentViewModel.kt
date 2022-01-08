@@ -12,10 +12,8 @@ import kotlinx.coroutines.launch
 class RegistrateFragmentViewModel(application: Application): AndroidViewModel(application) {
 
 
-    fun registration(userData: UserData, onSuccess: () -> Unit) =
+    fun registration(userData: UserData) =
         viewModelScope.launch(Dispatchers.Main){
-            REPOSITORY.registration(UserData(name = userData.name, gender=userData.gender, weight=userData.weight, normWater = 0)){
-                onSuccess()
-            }
+            REPOSITORY.registration(UserData(name = userData.name, gender=userData.gender, weight=userData.weight, normWater = 0))
         }
 }

@@ -80,8 +80,7 @@ class RegistrateFragment : Fragment() {
                 mViewModel.registration(UserData(
                     name = mBinding.etName.text.toString(),
                     weight = mBinding.etWeight2.text.toString().toInt(),
-                    gender = selectedItem)){
-                    }
+                    gender = selectedItem))
             }
             else{
                 Toast.makeText(APP_ACTIVITY, "Пароли не совпадают", Toast.LENGTH_SHORT).show()

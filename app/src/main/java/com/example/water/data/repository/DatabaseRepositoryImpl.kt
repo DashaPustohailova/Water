@@ -2,8 +2,10 @@ package com.example.water.data.repository
 
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import com.example.water.R
 import com.example.water.data.storage.webStorage
+import com.example.water.domain.models.Report
 import com.example.water.domain.repository.DatabaseRepository
 import com.example.water.domain.models.UserData
 import com.example.water.utilits.*
@@ -25,53 +27,37 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
     }
 
     override fun connectToDatabase(onSuccess: () -> Unit, onFail: () -> Unit) {
-        AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
-            .addOnSuccessListener {
-
-                CURRENT_ID = AUTH.currentUser?.uid.toString()
-                REF_DATABASE = FirebaseDatabase.getInstance().reference
-
-                onSuccess() }
-            .addOnFailureListener {
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)}
+        webStorage.connectToDatabase(
+            onSuccess ={
+//               onSuccess()
+            },
+            onFail = {
+//                onFail()
+            }
+        )
     }
 
     override fun signOut() {
-        AUTH.signOut()
-        CURRENT_ID = ""
-        ID_REPORT = ""
-        USER_DATA = UserData()
+        webStorage.signOut()
     }
 
-    override fun registration(userData: UserData, onSuccess: () -> Unit ) {
-
-        AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
-            .addOnSuccessListener {
-                connectToDatabase(
-                    {
-                    val userDataNote = hashMapOf<String, Any>()
-                    userDataNote[NAME] = userData.name
-                    userDataNote[GENDER] = userData.gender
-                    userDataNote[WEIGHT] = userData.weight
-                    if(userData.gender.equals("Женский")){
-                        userDataNote[NORM_WATER] = userData.weight.toInt() * 31
-                        Log.d("Value", userData.weight.toString())
-                    }
-                    else {
-                        userDataNote[NORM_WATER] = userData.weight.toInt() * 35
-                        Log.d("Value", userData.weight.toString())
-                    }
-
-                    REF_DATABASE?.child("users/${AUTH.currentUser?.uid.toString()}")
-                        ?.updateChildren(userDataNote)
-                        ?.addOnSuccessListener { onSuccess()
-                            Toast.makeText(APP_ACTIVITY, "add user data", Toast.LENGTH_SHORT).show()}
-
-                },{})
-                Toast.makeText(APP_ACTIVITY, "Регистрация прошла успешна", Toast.LENGTH_SHORT).show()
-                APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_startFragment)
-                onSuccess()
-            }
+    override fun registration(userData: UserData) {
+        webStorage.registration(userData)
     }
 
+    override fun getAllReport(): LiveData<List<Report>> {
+        return webStorage.getAllReport()
+    }
+
+    override fun getCurrentDateReport(): LiveData<Long> {
+        return webStorage.getCurrentDateReport()
+    }
+
+    override fun getLastReport(): LiveData<Report> {
+        return webStorage.getLastReport()
+    }
+
+    override fun getUserData(): LiveData<UserData> {
+        return webStorage.getUserData()
+    }
 }
