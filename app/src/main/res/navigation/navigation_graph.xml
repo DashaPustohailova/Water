@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/lkFragment"
+        android:name="com.example.water.presentation.screens.lk.LkFragment"
+        android:label="fragment_lk"
+        tools:layout="@layout/fragment_lk" >
+        <action
+            android:id="@+id/action_lkFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+        <action
+            android:id="@+id/action_lkFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_graph" />
+        <action
+            android:id="@+id/action_lkFragment_to_userPersonalDataFragment"
+            app:destination="@id/userPersonalDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrateFragment"
+        android:name="com.example.water.presentation.screens.Registrate.RegistrateFragment"
+        android:label="fragment_registrate"
+        tools:layout="@layout/fragment_registrate" >
+        <action
+            android:id="@+id/action_registrateFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_registrateFragment_to_lkFragment"
+            app:destination="@id/lkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="com.example.water.presentation.screens.statistics.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" >
+        <action
+            android:id="@+id/action_statisticsFragment_to_lkFragment"
+            app:destination="@id/lkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.water.presentation.screens.start.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_registrateFragment"
+            app:destination="@id/registrateFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_lkFragment"
+            app:destination="@id/lkFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_graph"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/userPersonalDataFragment"
+        android:name="com.example.water.presentation.screens.userPersonalData.UserPersonalDataFragment"
+        android:label="fragment_user_personal_data"
+        tools:layout="@layout/fragment_user_personal_data" >
+        <action
+            android:id="@+id/action_userPersonalDataFragment_to_lkFragment"
+            app:destination="@id/lkFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_graph" />
+    </fragment>
+</navigation>
