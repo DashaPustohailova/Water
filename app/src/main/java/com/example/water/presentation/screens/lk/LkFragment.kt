@@ -23,10 +23,7 @@ class LkFragment : Fragment() {
     private var _binding: FragmentLkBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: LkFragmentViewModel
-
-
     private lateinit var transition: AnimationDrawable
-    val sdf = SimpleDateFormat("dd.M.yyyy")
 
 
 

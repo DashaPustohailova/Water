@@ -26,14 +26,14 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
         webStorage.initUser()
     }
 
-    override fun connectToDatabase(onSuccess: () -> Unit, onFail: () -> Unit) {
+    override fun connectToDatabase(inputEmail: String, inputPassword: String, onSuccess: () -> Unit, onFail: () -> Unit) {
         webStorage.connectToDatabase(
+            inputEmail = inputEmail,
+            inputPassword = inputPassword,
             onSuccess ={
-//               onSuccess()
+               onSuccess()
             },
-            onFail = {
-//                onFail()
-            }
+            onFail = {}
         )
     }
 
@@ -41,8 +41,8 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
         webStorage.signOut()
     }
 
-    override fun registration(userData: UserData) {
-        webStorage.registration(userData)
+    override fun registration(inputEmail: String, inputPassword: String,userData: UserData) {
+        webStorage.registration(inputEmail = inputEmail,inputPassword = inputPassword, userData = userData)
     }
 
     override fun getAllReport(): LiveData<List<Report>> {
@@ -59,5 +59,9 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
 
     override fun getUserData(): LiveData<UserData> {
         return webStorage.getUserData()
+    }
+
+    override fun updateCountOfWater(report: Report) {
+        webStorage.updateUserData(report = report)
     }
 }

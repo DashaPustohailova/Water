@@ -39,7 +39,8 @@ class UserPersonalDataFragment : Fragment() {
 
     private fun initialization() {
 
-        mViewModel = ViewModelProvider(this).get(UserPersonalDataViewModel::class.java)
+        mViewModel = ViewModelProvider(this, UserPersonalDataViewModelFactory())
+            .get(UserPersonalDataViewModel::class.java)
 
         mBinding.bback.setBackgroundResource(R.drawable.back_water)
         transition =  mBinding.bback.background as AnimationDrawable

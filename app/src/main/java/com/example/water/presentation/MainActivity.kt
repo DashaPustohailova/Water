@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.water.R
+import com.example.water.data.repository.DatabaseRepositoryImpl
+import com.example.water.data.storage.firebase.FirebaseStorage
 import com.example.water.databinding.ActivityMainBinding
 import com.example.water.utilits.APP_ACTIVITY
 

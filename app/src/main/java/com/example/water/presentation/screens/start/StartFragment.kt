@@ -13,6 +13,8 @@ import com.example.water.utilits.*
 import kotlinx.android.synthetic.main.fragment_start.*
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.Observer
+import com.example.water.data.repository.DatabaseRepositoryImpl
+import com.example.water.data.storage.firebase.FirebaseStorage
 
 
 class StartFragment : Fragment() {

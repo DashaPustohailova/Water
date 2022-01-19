@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.example.water.R
 import com.example.water.data.storage.webStorage
+import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
 import com.example.water.domain.models.UserData
 import com.example.water.utilits.*
@@ -16,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 
 
 class FirebaseStorage : webStorage {
+    private lateinit var AUTH: FirebaseAuth
 
     override fun init(){
         AUTH = FirebaseAuth.getInstance()
@@ -42,28 +44,27 @@ class FirebaseStorage : webStorage {
         USER_DATA = UserData()
     }
 
-    override fun registration(userData: UserData) {
-        AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD)
+    override fun registration(inputEmail: String, inputPassword: String, userData: UserData) {
+        AUTH.createUserWithEmailAndPassword(inputEmail, inputPassword)
             .addOnSuccessListener {
-                connectToDatabase(
+                connectToDatabase(inputEmail, inputPassword,
                     onSuccess = {
                         val userDataNote = hashMapOf<String, Any>()
-                        userDataNote[NAME] = userData.name
-                        userDataNote[GENDER] = userData.gender
-                        userDataNote[WEIGHT] = userData.weight
+                        userDataNote["name"] = userData.name
+                        userDataNote["gender"] = userData.gender
+                        userDataNote["weight"] = userData.weight
                         if(userData.gender.equals("Женский")){
-                            userDataNote[NORM_WATER] = userData.weight.toInt() * 31
+                            userDataNote["normWater"] = userData.weight.toInt() * 31
                             Log.d("Value", userData.weight.toString())
                         }
                         else {
-                            userDataNote[NORM_WATER] = userData.weight.toInt() * 35
+                            userDataNote["normWater"] = userData.weight.toInt() * 35
                             Log.d("Value", userData.weight.toString())
                         }
 
                         REF_DATABASE?.child("users/${AUTH.currentUser?.uid.toString()}")
                             ?.updateChildren(userDataNote)
                             ?.addOnSuccessListener {
-//                                Toast.makeText(APP_ACTIVITY, "add user data", Toast.LENGTH_SHORT).show()
                             }
                         Toast.makeText(APP_ACTIVITY, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
                         APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
@@ -74,11 +75,12 @@ class FirebaseStorage : webStorage {
             }
     }
 
-    override fun connectToDatabase(onSuccess: () -> Unit, onFail: () -> Unit) {
-        AUTH.signInWithEmailAndPassword(EMAIL, PASSWORD)
+    override fun connectToDatabase(inputEmail: String, inputPassword: String,onSuccess: () -> Unit, onFail: () -> Unit) {
+        AUTH.signInWithEmailAndPassword(inputEmail, inputPassword)
             .addOnSuccessListener {
                 CURRENT_ID = AUTH.currentUser?.uid.toString()
                 REF_DATABASE = FirebaseDatabase.getInstance().reference
+                Log.d("Value", "sign in")
                 onSuccess()
             }
             .addOnFailureListener {
@@ -99,6 +101,17 @@ class FirebaseStorage : webStorage {
 
     override fun getUserData(): LiveData<UserData> {
         return UserDataLiveData()
+    }
+
+    override fun updateUserData(report: Report) {
+        val reportNote = hashMapOf<String, Any>()
+        reportNote["date"] =  report.date
+        reportNote["water"] = report.water
+
+        REF_DATABASE?.child("report/$CURRENT_ID/$ID_REPORT")
+            ?.updateChildren(reportNote)
+            ?.addOnSuccessListener {
+            }
     }
 
 

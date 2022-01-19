@@ -1,19 +1,40 @@
 package com.example.water.presentation.screens.Registrate
 
-import android.app.Application
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.water.domain.models.UserData
+import com.example.water.domain.usecase.SaveUserDataUseCase
 import com.example.water.utilits.REPOSITORY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegistrateFragmentViewModel(application: Application): AndroidViewModel(application) {
+class RegistrateFragmentViewModel(
+    private val saveUserDataUseCase: SaveUserDataUseCase
+): ViewModel() {
+
+    private val toastMessageMutableLiveData = MutableLiveData<String>()
+    val toastMessageLiveData: LiveData<String> = toastMessageMutableLiveData
 
 
-    fun registration(userData: UserData) =
-        viewModelScope.launch(Dispatchers.Main){
-            REPOSITORY.registration(UserData(name = userData.name, gender=userData.gender, weight=userData.weight, normWater = 0))
+    fun registration(
+        inputEmail: String,
+        inputPassword: String,
+        secondPassword: String,
+        userData: UserData, ) {
+        if (inputPassword.equals(secondPassword)) {
+            viewModelScope.launch(Dispatchers.Main) {
+                saveUserDataUseCase.execute(
+                    inputEmail,
+                    inputPassword,
+                    UserData(
+                        name = userData.name,
+                        gender = userData.gender,
+                        weight = userData.weight,
+                        normWater = 0
+                    )
+                )
+            }
+        } else {
+            toastMessageMutableLiveData.value = "Пароли не совпадают"
         }
+    }
 }

@@ -1,9 +1,8 @@
 package com.example.water.data.storage.firebase
 
 import androidx.lifecycle.LiveData
+import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
-import com.example.water.utilits.CURRENT_ID
-import com.example.water.utilits.REF_DATABASE
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener

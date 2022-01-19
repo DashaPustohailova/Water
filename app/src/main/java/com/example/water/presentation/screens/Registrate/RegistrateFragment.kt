@@ -9,19 +9,21 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
+import com.example.water.data.repository.DatabaseRepositoryImpl
+import com.example.water.data.storage.firebase.FirebaseStorage
 import com.example.water.databinding.FragmentRegistrateBinding
 import com.example.water.domain.models.UserData
 import com.example.water.utilits.APP_ACTIVITY
-import com.example.water.utilits.EMAIL
-import com.example.water.utilits.PASSWORD
+import com.example.water.utilits.USER_DATA
+import kotlinx.android.synthetic.main.fragment_lk.*
 import kotlinx.android.synthetic.main.fragment_registrate.*
 import kotlin.properties.Delegates
 
 
 class RegistrateFragment : Fragment() {
-
 
     private var _binding: FragmentRegistrateBinding? = null
     private val mBinding get() = _binding!!
@@ -29,12 +31,7 @@ class RegistrateFragment : Fragment() {
     private lateinit var transition: AnimationDrawable
 
     lateinit var name: String
-    var selectedItem: String = "Женский"
-    var weight by Delegates.notNull<Int>()
-    lateinit var gender: String
-    lateinit var inputEmail: String
-    lateinit var inputPassword: String
-    lateinit var inputPasswordSecond: String
+    var selectedItem: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,8 +48,16 @@ class RegistrateFragment : Fragment() {
     }
 
     private fun initialization() {
-        mViewModel = ViewModelProvider(this).get(RegistrateFragmentViewModel::class.java)
+        mViewModel = ViewModelProvider(this, RegistrationViewModelFactory()).get(RegistrateFragmentViewModel::class.java)
 
+
+        mViewModel.toastMessageLiveData.observe(
+            viewLifecycleOwner,
+            Observer { text ->
+                text?.let {
+                    Toast.makeText(APP_ACTIVITY, text, Toast.LENGTH_SHORT).show()
+                }
+            })
 
         val genderArray = resources.getStringArray(R.array.gender)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, genderArray)
@@ -71,22 +76,21 @@ class RegistrateFragment : Fragment() {
 
 
         btRegistrate.setOnClickListener{
+            val email = mBinding.inputEmail.text.toString()
             val password = mBinding.etPassword.text.toString()
             val secondPassword = mBinding.etPassword2.text.toString()
-            EMAIL = mBinding.inputEmail.text.toString()
-            PASSWORD = mBinding.etPassword.text.toString()
 
-            if(password.equals(secondPassword)){
-                mViewModel.registration(UserData(
-                    name = mBinding.etName.text.toString(),
-                    weight = mBinding.etWeight2.text.toString().toInt(),
-                    gender = selectedItem))
+            mViewModel.registration(
+                    inputEmail = email,
+                    inputPassword = password,
+                    secondPassword = secondPassword,
+                    userData = UserData(
+                        name = mBinding.etName.text.toString(),
+                        weight = mBinding.etWeight2.text.toString().toInt(),
+                        gender = selectedItem
+                    )
+                )
             }
-            else{
-                Toast.makeText(APP_ACTIVITY, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
-            }
-
-        }
     }
 
     override fun onDestroyView() {

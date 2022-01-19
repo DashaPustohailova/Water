@@ -1,17 +1,19 @@
 package com.example.water.presentation.screens.lk
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.example.water.R
-import com.example.water.data.storage.firebase.CurrentDateReportLiveData
-import com.example.water.data.storage.firebase.LastReportLiveData
-import com.example.water.data.storage.firebase.UserDataLiveData
+import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
+import com.example.water.domain.usecase.SignOutUseCase
+import com.example.water.domain.usecase.UpdateCountWaterUseCase
 import com.example.water.utilits.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LkFragmentViewModel(application: Application): AndroidViewModel(application) {
+class LkFragmentViewModel(
+    private val signOutUseCase: SignOutUseCase,
+    private val updateCountOfWaterUseCase: UpdateCountWaterUseCase
+): ViewModel() {
 
     val userLiveData = REPOSITORY.getUserData()
     val currentReport = REPOSITORY.getCurrentDateReport()
@@ -20,7 +22,7 @@ class LkFragmentViewModel(application: Application): AndroidViewModel(applicatio
     val sdf = SimpleDateFormat("dd.M.yyyy")
 
     fun signOut(){
-        REPOSITORY.signOut()
+        signOutUseCase.execute()
         APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
     }
 
@@ -33,14 +35,7 @@ class LkFragmentViewModel(application: Application): AndroidViewModel(applicatio
     }
 
     fun changeCountWater(countWater: String) {
-        val reportNote = hashMapOf<String, Any>()
-        val report = Report(sdf.format(Date()),"0")
-        reportNote[DATE] =  report.date
-        reportNote[WATER] = countWater
-        REF_DATABASE?.child("report/$CURRENT_ID/$ID_REPORT")
-            ?.updateChildren(reportNote)
-            ?.addOnSuccessListener {
-            }
+        updateCountOfWaterUseCase.execute(Report(sdf.format(Date()),countWater))
     }
 
     fun createCurrentDataReport(data: Long) {
@@ -51,8 +46,8 @@ class LkFragmentViewModel(application: Application): AndroidViewModel(applicatio
                 ?.push()?.key.toString()
             val reportNote = hashMapOf<String, Any>()
             val report = Report(date = sdf.format(Date()), water = "0")
-            reportNote[DATE] =  report.date
-            reportNote[WATER] = report.water
+            reportNote["date"] =  report.date
+            reportNote["water"] = report.water
             REF_DATABASE?.child("report/$CURRENT_ID/$idReport")
                 ?.updateChildren(reportNote)
                 ?.addOnSuccessListener {

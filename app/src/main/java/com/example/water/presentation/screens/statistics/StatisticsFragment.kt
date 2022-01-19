@@ -34,16 +34,13 @@ class StatisticsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initialization()
-    }
-
-    private fun initialization() {
 
         mBinding.bback.setBackgroundResource(R.drawable.back_water)
         transition =  mBinding.bback.background as AnimationDrawable
         transition.start()
 
-        mViewModel = ViewModelProvider(this).get(StatisticksFragmentViewModel::class.java)
+        mViewModel = ViewModelProvider(this, StatisticViewModelFactory()).get(StatisticksFragmentViewModel::class.java)
+
         mAdapter = StatisticAdapter()
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
