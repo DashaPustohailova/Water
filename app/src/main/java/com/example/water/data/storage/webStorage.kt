@@ -15,4 +15,5 @@ interface webStorage {
     fun getLastReport() : LiveData<Report>
     fun getUserData() : LiveData<UserData>
     fun updateUserData(report: Report)
+    fun createCurrentDataReport()
 }

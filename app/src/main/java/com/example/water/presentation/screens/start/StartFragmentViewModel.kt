@@ -5,18 +5,22 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.water.R
 import com.example.water.data.storage.firebase.CurrentDateReportLiveData
+import com.example.water.domain.usecase.GetAllReportUseCase
+import com.example.water.domain.usecase.InitDatabaseUseCase
 import com.example.water.utilits.APP_ACTIVITY
 import com.example.water.utilits.REPOSITORY
 
-class StartFragmentViewModel(application: Application): AndroidViewModel(application) {
-
+class StartFragmentViewModel(
+    private val initDatabaseUseCase: InitDatabaseUseCase
+): ViewModel() {
     private val resultSignInMutableLiveData = MutableLiveData<String>()
     val resultSignInLiveData : LiveData<String> = resultSignInMutableLiveData
 
     fun initDatabase(inputEmail: String, inputPassword: String, onSuccess: () -> Unit) {
-        REPOSITORY.connectToDatabase(
+        initDatabaseUseCase.execute(
             inputEmail = inputEmail,
             inputPassword = inputPassword,
             onSuccess = {
@@ -25,6 +29,7 @@ class StartFragmentViewModel(application: Application): AndroidViewModel(applica
             onFail = {
                 resultSignInMutableLiveData.value = "Проблемы при авторизации"
             }
+
         )
     }
 

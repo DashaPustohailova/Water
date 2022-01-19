@@ -14,4 +14,5 @@ interface DatabaseRepository {
     fun getLastReport() : LiveData<Report>
     fun getUserData() : LiveData<UserData>
     fun updateCountOfWater(report: Report)
+    fun createCurrentDataReport()
 }

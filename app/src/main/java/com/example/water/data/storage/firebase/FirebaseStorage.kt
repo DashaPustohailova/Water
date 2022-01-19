@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.*
 
 
 class FirebaseStorage : webStorage {
@@ -109,6 +110,20 @@ class FirebaseStorage : webStorage {
         reportNote["water"] = report.water
 
         REF_DATABASE?.child("report/$CURRENT_ID/$ID_REPORT")
+            ?.updateChildren(reportNote)
+            ?.addOnSuccessListener {
+            }
+    }
+
+    override fun createCurrentDataReport() {
+        val idReport  = REF_DATABASE?.ref
+            ?.child("report/$CURRENT_ID")
+            ?.push()?.key.toString()
+        val reportNote = hashMapOf<String, Any>()
+        val report = Report(date = sdf.format(Date()), water = "0")
+        reportNote["date"] =  report.date
+        reportNote["water"] = report.water
+        REF_DATABASE?.child("report/$CURRENT_ID/$idReport")
             ?.updateChildren(reportNote)
             ?.addOnSuccessListener {
             }

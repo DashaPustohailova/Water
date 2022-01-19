@@ -64,4 +64,8 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
     override fun updateCountOfWater(report: Report) {
         webStorage.updateUserData(report = report)
     }
+
+    override fun createCurrentDataReport() {
+        webStorage.createCurrentDataReport()
+    }
 }

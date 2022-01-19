@@ -4,20 +4,25 @@ import androidx.lifecycle.ViewModel
 import com.example.water.R
 import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
-import com.example.water.domain.usecase.SignOutUseCase
-import com.example.water.domain.usecase.UpdateCountWaterUseCase
+import com.example.water.domain.usecase.*
 import com.example.water.utilits.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class LkFragmentViewModel(
     private val signOutUseCase: SignOutUseCase,
-    private val updateCountOfWaterUseCase: UpdateCountWaterUseCase
+    private val updateCountOfWaterUseCase: UpdateCountWaterUseCase,
+    private val getUserDataUseCase: GetUserDataUseCase,
+    private val currentDataReportLiveData: GetCurrentReportUseCase,
+    private val lastReportUseCase: GetLastReportUseCase,
+    private val createCurrentDataReportUseCase: CreateCurrentDataReportUseCase
+
+
 ): ViewModel() {
 
-    val userLiveData = REPOSITORY.getUserData()
-    val currentReport = REPOSITORY.getCurrentDateReport()
-    val lastReport = REPOSITORY.getLastReport()
+    val userLiveData = getUserDataUseCase.execute()
+    val currentReport = currentDataReportLiveData.execute()
+    val lastReport = lastReportUseCase.execute()
 
     val sdf = SimpleDateFormat("dd.M.yyyy")
 
@@ -41,17 +46,7 @@ class LkFragmentViewModel(
     fun createCurrentDataReport(data: Long) {
         if (data == 0L) {
             //если в базе данных еще нет записи с текущей датой
-            val idReport  = REF_DATABASE?.ref
-                ?.child("report/$CURRENT_ID")
-                ?.push()?.key.toString()
-            val reportNote = hashMapOf<String, Any>()
-            val report = Report(date = sdf.format(Date()), water = "0")
-            reportNote["date"] =  report.date
-            reportNote["water"] = report.water
-            REF_DATABASE?.child("report/$CURRENT_ID/$idReport")
-                ?.updateChildren(reportNote)
-                ?.addOnSuccessListener {
-                }
+            createCurrentDataReportUseCase.execute()
         }
     }
 

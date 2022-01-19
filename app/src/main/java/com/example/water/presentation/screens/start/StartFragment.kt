@@ -41,7 +41,7 @@ class StartFragment : Fragment() {
 
     private fun initialization(){
 
-        mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
+        mViewModel = ViewModelProvider(this, StartFragmentViewModelFactory()).get(StartFragmentViewModel::class.java)
 
         mBinding.bback.setBackgroundResource(R.drawable.back_water)
         transition =  mBinding.bback.background as AnimationDrawable
