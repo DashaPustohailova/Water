@@ -43,7 +43,7 @@ class LkFragment : Fragment() {
 
     private fun initialization() {
 
-        mViewModel = ViewModelProvider(this).get(LkFragmentViewModel::class.java)
+        mViewModel = ViewModelProvider(this, LkViewModelFactory()).get(LkFragmentViewModel::class.java)
         mViewModel.userLiveData.observe(
             viewLifecycleOwner,
             Observer { data ->
