@@ -12,15 +12,9 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
-import com.example.water.data.repository.DatabaseRepositoryImpl
-import com.example.water.data.storage.firebase.FirebaseStorage
 import com.example.water.databinding.FragmentRegistrateBinding
 import com.example.water.domain.models.UserData
-import com.example.water.utilits.APP_ACTIVITY
-import com.example.water.utilits.USER_DATA
-import kotlinx.android.synthetic.main.fragment_lk.*
 import kotlinx.android.synthetic.main.fragment_registrate.*
-import kotlin.properties.Delegates
 
 
 class RegistrateFragment : Fragment() {
@@ -55,7 +49,7 @@ class RegistrateFragment : Fragment() {
             viewLifecycleOwner,
             Observer { text ->
                 text?.let {
-                    Toast.makeText(APP_ACTIVITY, text, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
                 }
             })
 

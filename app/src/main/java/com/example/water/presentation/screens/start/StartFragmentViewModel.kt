@@ -1,17 +1,11 @@
 package com.example.water.presentation.screens.start
 
-import android.app.Application
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.water.R
-import com.example.water.data.storage.firebase.CurrentDateReportLiveData
-import com.example.water.domain.usecase.GetAllReportUseCase
 import com.example.water.domain.usecase.InitDatabaseUseCase
 import com.example.water.utilits.APP_ACTIVITY
-import com.example.water.utilits.REPOSITORY
 
 class StartFragmentViewModel(
     private val initDatabaseUseCase: InitDatabaseUseCase
@@ -27,6 +21,7 @@ class StartFragmentViewModel(
                 onSuccess()
             },
             onFail = {
+                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)
                 resultSignInMutableLiveData.value = "Проблемы при авторизации"
             }
 

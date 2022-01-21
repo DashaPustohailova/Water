@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.water.R
 import com.example.water.databinding.FragmentStatisticsBinding
 import com.example.water.domain.models.Report
+import kotlinx.android.synthetic.main.fragment_lk.*
 
 class StatisticsFragment : Fragment() {
 
@@ -45,9 +46,18 @@ class StatisticsFragment : Fragment() {
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
 
-        mViewModel.allReport.observe(this, Observer {
-            val list = it.asReversed()
-            mAdapter.setList(list)
-        })
+        mViewModel.userData.observe(
+            viewLifecycleOwner,
+            {
+                mAdapter.userData = it
+            }
+        )
+        mViewModel.allReport.observe(
+            viewLifecycleOwner,
+            {
+                val list = it.asReversed()
+                mAdapter.setList(list)
+            }
+        )
     }
 }

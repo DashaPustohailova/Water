@@ -4,21 +4,24 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import com.example.water.R
+import com.example.water.data.models.ReportStorage
+import com.example.water.data.models.UserStorage
 import com.example.water.data.storage.webStorage
 import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
-import com.example.water.domain.models.UserData
 import com.example.water.utilits.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class FirebaseStorage : webStorage {
     private lateinit var AUTH: FirebaseAuth
+    val sdf = SimpleDateFormat("dd.M.yyyy")
 
     override fun init(){
         AUTH = FirebaseAuth.getInstance()
@@ -29,7 +32,7 @@ class FirebaseStorage : webStorage {
             ?.child("users")?.child(CURRENT_ID)
             ?.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    USER_DATA = snapshot.getValue(UserData::class.java)?: UserData()
+                    USER_DATA_STORAGE = snapshot.getValue(UserStorage::class.java)?: UserStorage()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -42,10 +45,10 @@ class FirebaseStorage : webStorage {
         AUTH.signOut()
         CURRENT_ID = ""
         ID_REPORT = ""
-        USER_DATA = UserData()
+        USER_DATA_STORAGE = UserStorage()
     }
 
-    override fun registration(inputEmail: String, inputPassword: String, userData: UserData) {
+    override fun registration(inputEmail: String, inputPassword: String, userData: UserStorage) {
         AUTH.createUserWithEmailAndPassword(inputEmail, inputPassword)
             .addOnSuccessListener {
                 connectToDatabase(inputEmail, inputPassword,
@@ -85,10 +88,11 @@ class FirebaseStorage : webStorage {
                 onSuccess()
             }
             .addOnFailureListener {
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)}
+//                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)
+            }
     }
 
-    override fun getAllReport() : LiveData<List<Report>> {
+    override fun getAllReport() : LiveData<List<ReportStorage>> {
         return AllReportLiveData()
     }
 
@@ -96,15 +100,15 @@ class FirebaseStorage : webStorage {
         return CurrentDateReportLiveData()
     }
 
-    override fun getLastReport(): LiveData<Report> {
+    override fun getLastReport(): LiveData<ReportStorage> {
         return LastReportLiveData()
     }
 
-    override fun getUserData(): LiveData<UserData> {
+    override fun getUserData(): LiveData<UserStorage> {
         return UserDataLiveData()
     }
 
-    override fun updateUserData(report: Report) {
+    override fun updateUserData(report: ReportStorage) {
         val reportNote = hashMapOf<String, Any>()
         reportNote["date"] =  report.date
         reportNote["water"] = report.water

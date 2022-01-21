@@ -9,12 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentStartBinding
-import com.example.water.utilits.*
 import kotlinx.android.synthetic.main.fragment_start.*
 import android.graphics.drawable.AnimationDrawable
 import androidx.lifecycle.Observer
-import com.example.water.data.repository.DatabaseRepositoryImpl
-import com.example.water.data.storage.firebase.FirebaseStorage
 
 
 class StartFragment : Fragment() {
@@ -49,7 +46,7 @@ class StartFragment : Fragment() {
 
 
         mViewModel.resultSignInLiveData.observe(this, Observer {
-            Toast.makeText(APP_ACTIVITY, it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
 
         btIn.setOnClickListener{

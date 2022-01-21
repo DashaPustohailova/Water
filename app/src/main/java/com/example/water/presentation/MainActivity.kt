@@ -6,8 +6,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.water.R
-import com.example.water.data.repository.DatabaseRepositoryImpl
-import com.example.water.data.storage.firebase.FirebaseStorage
 import com.example.water.databinding.ActivityMainBinding
 import com.example.water.utilits.APP_ACTIVITY
 
@@ -24,11 +22,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        APP_ACTIVITY = this
         mToolbar = mBinding.toolbar
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setSupportActionBar(mToolbar)
         title = "Water"
+        APP_ACTIVITY = this
 
     }
 

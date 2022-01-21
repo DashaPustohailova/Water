@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentUserPersonalDataBinding
-import com.example.water.utilits.USER_DATA
 import kotlinx.android.synthetic.main.fragment_lk.tvHello
 import kotlinx.android.synthetic.main.fragment_user_personal_data.*
 
@@ -50,10 +49,9 @@ class UserPersonalDataFragment : Fragment() {
             viewLifecycleOwner,
             Observer { data ->
                 data?.let {
-                    USER_DATA = data
-                    tvHello.text = "Привет, " + USER_DATA.name
-                    tvWeight.text = "Ваш вес: " + USER_DATA.weight
-                    tvNormalWater.text = "Норма воды в день: " + USER_DATA.normWater + "мл"
+                    tvHello.text = "Привет, " + data.name
+                    tvWeight.text = "Ваш вес: " + data.weight
+                    tvNormalWater.text = "Норма воды в день: " + data.normWater + "мл"
                 }
             }
         )

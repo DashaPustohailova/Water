@@ -1,13 +1,14 @@
 package com.example.water.data.storage.firebase
 
 import androidx.lifecycle.LiveData
+import com.example.water.data.models.ReportStorage
 import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class AllReportLiveData : LiveData<List<Report>> (){
+class AllReportLiveData : LiveData<List<ReportStorage>>(){
     private val mDatabaseReferenceWater = REF_DATABASE?.ref
         ?.child("report")?.child(CURRENT_ID)
 
@@ -15,7 +16,7 @@ class AllReportLiveData : LiveData<List<Report>> (){
         override fun onDataChange(snapshot: DataSnapshot) {
             value = snapshot.children.map {
                 //если не смогли получить запись, то просто возвращаем пустую запись
-                it.getValue(Report::class.java)?:Report()
+                it.getValue(ReportStorage::class.java)?:ReportStorage()
             }
         }
 

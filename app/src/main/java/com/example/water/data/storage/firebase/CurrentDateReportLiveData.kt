@@ -9,12 +9,14 @@ import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
-val sdf = SimpleDateFormat("dd.M.yyyy")
-val currentDate = sdf.format(Date())
 
 class CurrentDateReportLiveData: LiveData<Long>() {
+    val sdf = SimpleDateFormat("dd.M.yyyy")
+    val currentDate = sdf.format(Date())
+
     private val mDatabaseReferenceCurrentDateReport = REF_DATABASE?.ref
         ?.child("report")?.child(CURRENT_ID)?.orderByChild("date")?.equalTo(currentDate)
+
 
     private val listener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {

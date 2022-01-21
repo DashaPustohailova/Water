@@ -48,8 +48,7 @@ class LkFragment : Fragment() {
             viewLifecycleOwner,
             Observer { data ->
                 data?.let {
-                    USER_DATA = data
-                    tvHello.text = "Привет, " + USER_DATA.name
+                    tvHello.text = "Привет, " + it.name
                 }
             }
         )
@@ -81,15 +80,16 @@ class LkFragment : Fragment() {
         }
 
         btStatistics.setOnClickListener {
-            mViewModel.toStatisticFragment()
+            APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_statisticsFragment)
         }
 
         btProfile.setOnClickListener {
-            mViewModel.toPersonalDataFragment()
+            APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_userPersonalDataFragment)
         }
 
         btExit.setOnClickListener{
             mViewModel.signOut()
+            APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
         }
 
     }

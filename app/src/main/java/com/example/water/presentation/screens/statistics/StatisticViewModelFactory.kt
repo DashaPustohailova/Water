@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.water.data.repository.DatabaseRepositoryImpl
 import com.example.water.data.storage.firebase.FirebaseStorage
 import com.example.water.domain.usecase.GetAllReportUseCase
+import com.example.water.domain.usecase.GetUserDataUseCase
 import com.example.water.utilits.REPOSITORY
 
 class StatisticViewModelFactory : ViewModelProvider.Factory {
@@ -19,9 +20,15 @@ class StatisticViewModelFactory : ViewModelProvider.Factory {
     }
 
 
+    private val getUserDataUseCase by lazy {
+        GetUserDataUseCase(repository = REPOSITORY)
+    }
+
+
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return StatisticksFragmentViewModel(
-            getAllReportUseCase = getAllReportUseCase
+            getAllReportUseCase = getAllReportUseCase,
+            getUserDataUseCase = getUserDataUseCase
         ) as T
     }
 }

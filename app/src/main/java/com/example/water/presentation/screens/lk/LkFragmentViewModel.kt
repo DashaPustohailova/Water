@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.water.R
 import com.example.water.data.utilits.*
 import com.example.water.domain.models.Report
+import com.example.water.domain.models.UserData
 import com.example.water.domain.usecase.*
 import com.example.water.utilits.*
 import java.text.SimpleDateFormat
@@ -28,15 +29,7 @@ class LkFragmentViewModel(
 
     fun signOut(){
         signOutUseCase.execute()
-        APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_startFragment)
-    }
-
-    fun toStatisticFragment(){
-        APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_statisticsFragment)
-    }
-
-    fun toPersonalDataFragment() {
-        APP_ACTIVITY.mNavController.navigate(R.id.action_lkFragment_to_userPersonalDataFragment)
+//        USER_DATA = UserData()
     }
 
     fun changeCountWater(countWater: String) {

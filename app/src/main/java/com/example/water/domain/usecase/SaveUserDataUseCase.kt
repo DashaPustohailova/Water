@@ -5,7 +5,11 @@ import com.example.water.domain.repository.DatabaseRepository
 
 class SaveUserDataUseCase(private val repository: DatabaseRepository) {
 
-    fun execute( inputEmail: String, inputPassword: String, userData: UserData,){
-        repository.registration(inputEmail = inputEmail, inputPassword = inputPassword, userData = userData)
+    fun execute( inputEmail: String, inputPassword: String, userData: UserData){
+        repository.registration(
+            inputEmail = inputEmail,
+            inputPassword = inputPassword,
+            userData = userData
+        )
     }
 }
