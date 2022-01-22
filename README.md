@@ -6,6 +6,7 @@ Pet-проект - приложение для отслеживания коли
 - Navigation Graph
 - Firebase
 - LiveData
+- Cliean Architecture
 
 
 
