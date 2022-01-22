@@ -28,7 +28,9 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
             onSuccess ={
                onSuccess()
             },
-            onFail = {}
+            onFail = {
+                onFail()
+            }
         )
     }
 
@@ -36,8 +38,13 @@ class DatabaseRepositoryImpl(private val webStorage: webStorage) : DatabaseRepos
         webStorage.signOut()
     }
 
-    override fun registration(inputEmail: String, inputPassword: String,userData: UserData) {
-        webStorage.registration(inputEmail = inputEmail,inputPassword = inputPassword, userData = userDataToStorage(userData))
+    override fun registration(inputEmail: String, inputPassword: String,userData: UserData, onSuccess: () -> Unit, onFail: () -> Unit) {
+        webStorage.registration(
+            inputEmail = inputEmail,
+            inputPassword = inputPassword,
+            userData = userDataToStorage(userData),
+            onSuccess = {onSuccess()},
+            onFail= {onFail()})
     }
 
     override fun getAllReport(): LiveData<List<Report>> {

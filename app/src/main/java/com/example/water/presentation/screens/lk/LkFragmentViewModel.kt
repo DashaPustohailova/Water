@@ -29,7 +29,6 @@ class LkFragmentViewModel(
 
     fun signOut(){
         signOutUseCase.execute()
-//        USER_DATA = UserData()
     }
 
     fun changeCountWater(countWater: String) {

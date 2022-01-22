@@ -13,7 +13,7 @@ class StartFragmentViewModel(
     private val resultSignInMutableLiveData = MutableLiveData<String>()
     val resultSignInLiveData : LiveData<String> = resultSignInMutableLiveData
 
-    fun initDatabase(inputEmail: String, inputPassword: String, onSuccess: () -> Unit) {
+    fun initDatabase(inputEmail: String, inputPassword: String, onSuccess: () -> Unit, onFail: () -> Unit) {
         initDatabaseUseCase.execute(
             inputEmail = inputEmail,
             inputPassword = inputPassword,
@@ -21,8 +21,8 @@ class StartFragmentViewModel(
                 onSuccess()
             },
             onFail = {
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)
                 resultSignInMutableLiveData.value = "Проблемы при авторизации"
+                onFail()
             }
 
         )
@@ -34,11 +34,19 @@ class StartFragmentViewModel(
 
     fun signIn(inputEmail: String, inputPassword: String) {
         if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()){
-            initDatabase(inputEmail, inputPassword){
-                //если инициализация прошла успешно
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
-                resultSignInMutableLiveData.value = "Инициализация прошла успешно"
-            }
+            initDatabase(
+                inputEmail = inputEmail,
+                inputPassword = inputPassword,
+                onSuccess = {
+                    //если инициализация прошла успешно
+                    APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_lkFragment)
+                    resultSignInMutableLiveData.value = "Инициализация прошла успешно"
+                },
+                onFail = {
+                    APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)
+                    resultSignInMutableLiveData.value = "Аккаунт не существует"
+                }
+            )
         }
         else{
             resultSignInMutableLiveData.value = "Неверный логин или пароль"

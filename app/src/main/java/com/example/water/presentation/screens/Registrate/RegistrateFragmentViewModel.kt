@@ -21,7 +21,9 @@ class RegistrateFragmentViewModel(
         inputEmail: String,
         inputPassword: String,
         secondPassword: String,
-        userData: UserData, ) {
+        userData: UserData,
+        onSuccess: () -> Unit,
+        onFail: () -> Unit) {
         if (inputPassword.equals(secondPassword)) {
             viewModelScope.launch(Dispatchers.Main) {
                 saveUserDataUseCase.execute(
@@ -32,8 +34,17 @@ class RegistrateFragmentViewModel(
                         gender = userData.gender,
                         weight = userData.weight,
                         normWater = 0
-                    ))
+                    ),
+                    onSuccess = {
+                        toastMessageMutableLiveData.value = "Регистрация прошла успешно"
+                        onSuccess()
+                    },
+                    onFail = {
+                        toastMessageMutableLiveData.value = "Ошибка регистрации"
+                        onFail()
                     }
+                )
+            }
         }
         else {
             toastMessageMutableLiveData.value = "Пароли не совпадают"

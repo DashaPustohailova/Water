@@ -48,7 +48,7 @@ class FirebaseStorage : webStorage {
         USER_DATA_STORAGE = UserStorage()
     }
 
-    override fun registration(inputEmail: String, inputPassword: String, userData: UserStorage) {
+    override fun registration(inputEmail: String, inputPassword: String, userData: UserStorage, onSuccess: () -> Unit, onFail: () -> Unit) {
         AUTH.createUserWithEmailAndPassword(inputEmail, inputPassword)
             .addOnSuccessListener {
                 connectToDatabase(inputEmail, inputPassword,
@@ -70,11 +70,10 @@ class FirebaseStorage : webStorage {
                             ?.updateChildren(userDataNote)
                             ?.addOnSuccessListener {
                             }
-                        Toast.makeText(APP_ACTIVITY, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
-                        APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
+                        onSuccess()
                     },
                     onFail = {
-                        Toast.makeText(APP_ACTIVITY, "Ошибка регистрации", Toast.LENGTH_SHORT).show()
+                        onFail()
                     })
             }
     }
@@ -88,7 +87,7 @@ class FirebaseStorage : webStorage {
                 onSuccess()
             }
             .addOnFailureListener {
-//                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_registrateFragment)
+                onFail()
             }
     }
 

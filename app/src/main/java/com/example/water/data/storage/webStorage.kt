@@ -10,7 +10,7 @@ interface webStorage {
     fun init()
     fun initUser()
     fun signOut()
-    fun registration(inputEmail: String, inputPassword: String,userData: UserStorage)
+    fun registration(inputEmail: String, inputPassword: String,userData: UserStorage, onSuccess: () -> Unit, onFail: () -> Unit)
     fun connectToDatabase(inputEmail: String, inputPassword: String, onSuccess: () -> Unit, onFail: () -> Unit)
     fun getAllReport() : LiveData<List<ReportStorage>>
     fun getCurrentDateReport() : LiveData<Long>

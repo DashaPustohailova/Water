@@ -8,7 +8,7 @@ interface DatabaseRepository {
     fun connectToDatabase(inputEmail: String, inputPassword: String, onSuccess: () -> Unit, onFail: () -> Unit)
     fun signOut()
     fun initUser()
-    fun registration(inputEmail: String, inputPassword: String, userData: UserData)
+    fun registration(inputEmail: String, inputPassword: String, userData: UserData, onSuccess: () -> Unit, onFail: () -> Unit)
     fun getAllReport() : LiveData<List<Report>>
     fun getCurrentDateReport() : LiveData<Long>
     fun getLastReport() : LiveData<Report>

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.water.R
 import com.example.water.databinding.FragmentRegistrateBinding
 import com.example.water.domain.models.UserData
+import com.example.water.utilits.APP_ACTIVITY
 import kotlinx.android.synthetic.main.fragment_registrate.*
 
 
@@ -82,7 +83,14 @@ class RegistrateFragment : Fragment() {
                         name = mBinding.etName.text.toString(),
                         weight = mBinding.etWeight2.text.toString().toInt(),
                         gender = selectedItem
-                    )
+                    ),
+                    onSuccess = {
+                        Toast.makeText(APP_ACTIVITY, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
+                        APP_ACTIVITY.mNavController.navigate(R.id.action_registrateFragment_to_lkFragment)
+                    },
+                    onFail = {
+
+                    }
                 )
             }
     }
